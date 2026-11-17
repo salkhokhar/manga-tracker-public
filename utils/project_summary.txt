@@ -1,0 +1,49 @@
+### 📖 **Project Overview**
+Manga Tracker is a local, self-hosted web application designed to track and read manga, manhwa, and manhua from various online sources. 
+*   **Backend:** Built with Python (Flask & Waitress), it manages an Excel-based database (`Manga_images.xlsx`) to track your reading progress, favorites, and metadata.
+*   **Frontend:** A clean, responsive dashboard (HTML/CSS/JS) that lets you search your local library, explore new titles from the web, and read chapters directly within the app.
+*   **Scraping Engine:** A dynamic, configuration-driven web scraper that pulls manga details, chapter lists, and high-quality images from multiple external websites on the fly.
+
+---
+
+### ✅ **What We Accomplished Today**
+
+1.  **Multi-Site Scraper Architecture:**
+    *   Transitioned the app from being hardcoded to a single site (`mangaread.org`) to a modular, configuration-driven system.
+    *   Created a `scrapers/` directory with individual JSON configuration files for sites like MangaRead, Asura Scans, Manga Fox, Arena Scans, Manga Clash, and KingOfShojo. This allows "over-the-air" updates to CSS selectors without changing backend code.
+2.  **Bypassed Advanced Anti-Bot Protections:**
+    *   **Manga Fox Reader:** Implemented a complex JavaScript unpacker (handling Dean Edwards' packer and dynamic variables) to successfully extract image URLs that were hidden from normal scrapers.
+    *   **Image Proxy:** Built an `/api/proxy_image` endpoint to route images through the Python backend, injecting necessary `Referer` headers to completely bypass hotlink protection (403 errors) on sites like Manga Fox and Asura Scans.
+    *   **AJAX Chapters:** Upgraded the "Madara Theme" scraper to detect and query hidden AJAX endpoints (`/ajax/chapters/` and `/wp-admin/admin-ajax.php`), restoring chapter lists that appeared empty.
+    *   **Adult Content Unlocked:** Configured the scraper to automatically pass `isAdult=1` cookies to bypass age-verification walls on restricted comics.
+3.  **UI & UX Enhancements:**
+    *   **Settings Menu:** Added a Settings modal to select your default search and explore websites.
+    *   **Dynamic UI Elements:** The "Open on Web" button now dynamically displays the actual domain of the comic (e.g., "Open on asurascans.com").
+    *   **Explore Filters:** Implemented dynamic category and "Status" (Ongoing/Completed) dropdowns that update based on the selected website's capabilities defined in your CSV.
+    *   **Seamless Library Management:** Fixed the "Add to Library" workflow so you are no longer kicked out of the detail view when adding a new comic.
+4.  **Database Recovery & Optimization:**
+    *   Successfully recovered your 274+ comic library after the 112MB `Manga_images.xlsx` file became corrupted.
+    *   Moved the heavy Excel save operations to background threads to prevent the UI from freezing when adding or deleting comics.
+
+---
+
+### 🐛 **Remaining Bugs & Limitations**
+
+1.  **Cloudflare "I'm Under Attack" Mode:**
+    *   **Sites affected:** `Toonily` and `Gourmet Scans`.
+    *   **The Issue:** These sites are currently using strict Cloudflare protection that blocks Python's `requests` library outright with a `403 Forbidden` error, preventing the "Explore" and "Search" features from working for those specific domains.
+2.  **Manga Fox Explore Covers:**
+    *   While the reader images work perfectly via the proxy, the thumbnail covers in the "Explore" grid for Manga Fox occasionally fail to load if their CDN rotates tokens too quickly.
+
+---
+
+### 🚀 **Things Left to Do (Future Enhancements)**
+
+1.  **Browser-Based Scraping Fallback:**
+    *   To defeat Cloudflare on Toonily and Gourmet Scans, we should integrate a headless browser solution like `Playwright` or `Selenium`. This would allow the backend to solve JS challenges before scraping the HTML.
+2.  **Database Migration (SQLite):**
+    *   Currently, the app loads a 112MB Excel file into memory on startup because it embeds image binaries directly into the spreadsheet. Migrating from Excel (`openpyxl`/`pandas`) to a lightweight SQL database (like `SQLite`) would drastically reduce memory usage, eliminate corruption risks, and make adding/deleting comics instantaneous.
+3.  **Remote Configuration Fetching:**
+    *   Before deploying to an App Store, modify `load_scrapers()` to fetch the `scrapers/*.json` files from a raw GitHub URL on startup. This way, if a website changes its HTML, you just update the JSON on GitHub, and all users get the fix instantly upon restarting the app.
+4.  **Bulk Update/Refresh Feature:**
+    *   Implement a background task that periodically checks all comics in your "Ongoing" library against their source URLs and notifies you if a new chapter is available.

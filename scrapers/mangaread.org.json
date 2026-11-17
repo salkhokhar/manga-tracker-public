@@ -1,0 +1,88 @@
+{
+  "name": "MangaRead",
+  "theme": "madara",
+  "search_url": "https://www.mangaread.org/?s={query}&post_type=wp-manga",
+  "selectors": {
+    "explore": {
+      "item": ".page-item-detail, .bsx, .series-card",
+      "title": "h3 a, .tt, h3",
+      "link": "h3 a, a",
+      "image": "img",
+      "image_attr": "data-src, src"
+    },
+    "search": {
+      "item": ".c-tabs-item__content",
+      "title": ".post-title h3 a",
+      "link": ".post-title h3 a",
+      "image": "img",
+      "image_attr": "data-src, src",
+      "latest_chapter": ".font-meta.chapter",
+      "date": ""
+    },
+    "details": {
+      "title": ".post-title h1",
+      "author": ".author-content a",
+      "genre": ".genres-content a",
+      "desc": ".summary__content",
+      "image": ".summary_image img",
+      "latest_chapter": ".wp-manga-chapter a",
+      "latest_date": ".chapter-release-date i",
+      "rating": "#averagerate, .score",
+      "meta_container": ".post-content_item",
+      "meta_key": ".summary-heading h5",
+      "meta_val": ".summary-content"
+    },
+    "chapters": {
+      "item": ".wp-manga-chapter, .listing-chapters_wrap li",
+      "link": "a",
+      "title": "a",
+      "date": ".chapter-release-date i"
+    },
+    "images": {
+      "item": ".reading-content img",
+      "src_attr": "data-src, src"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "all",
+      "urls": {
+        "Newest": "https://www.mangaread.org/manga/?m_orderby=new-manga",
+        "Latest": "https://www.mangaread.org/manga/?m_orderby=latest",
+        "Popular": "https://www.mangaread.org/manga/?m_orderby=trending",
+        "Rating": "https://www.mangaread.org/manga/?m_orderby=rating",
+        "A-Z": "https://www.mangaread.org/manga/?m_orderby=alphabet"
+      }
+    },
+    {
+      "type": "manhwa",
+      "urls": {
+        "Newest": "https://www.mangaread.org/genres/manhwa/?m_orderby=new-manga",
+        "Latest": "https://www.mangaread.org/genres/manhwa/?m_orderby=latest",
+        "Popular": "https://www.mangaread.org/genres/manhwa/?m_orderby=trending",
+        "Rating": "https://www.mangaread.org/genres/manhwa/?m_orderby=rating",
+        "A-Z": "https://www.mangaread.org/genres/manhwa/?m_orderby=alphabet"
+      }
+    },
+    {
+      "type": "manga",
+      "urls": {
+        "Newest": "https://www.mangaread.org/genres/manga/?m_orderby=new-manga",
+        "Latest": "https://www.mangaread.org/genres/manga/?m_orderby=latest",
+        "Popular": "https://www.mangaread.org/genres/manga/?m_orderby=trending",
+        "Rating": "https://www.mangaread.org/genres/manga/?m_orderby=rating",
+        "A-Z": "https://www.mangaread.org/genres/manga/?m_orderby=alphabet"
+      }
+    },
+    {
+      "type": "manhua",
+      "urls": {
+        "Newest": "https://www.mangaread.org/genres/manhua/?m_orderby=new-manga",
+        "Latest": "https://www.mangaread.org/genres/manhua/?m_orderby=latest",
+        "Popular": "https://www.mangaread.org/genres/manhua/?m_orderby=trending",
+        "Rating": "https://www.mangaread.org/genres/manhua/?m_orderby=rating",
+        "A-Z": "https://www.mangaread.org/genres/manhua/?m_orderby=alphabet"
+      }
+    }
+  ]
+}

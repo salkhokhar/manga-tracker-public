@@ -1,0 +1,46 @@
+{
+  "name": "Toonily",
+  "theme": "madara",
+  "requires_proxy": true,
+  "search_url": "https://toonily.com/?s={query}&post_type=wp-manga",
+  "selectors": {
+    "explore": {
+      "item": ".page-item-detail",
+      "title": ".post-title h3 a",
+      "link": ".post-title h3 a",
+      "image": "img",
+      "image_attr": "data-src, src"
+    },
+    "chapters": {
+      "item": ".wp-manga-chapter",
+      "link": "a",
+      "title": "a",
+      "date": ".chapter-release-date"
+    },
+    "details": {
+      "title": ".post-title h1",
+      "author": ".author-content a",
+      "genre": ".genres-content a",
+      "desc": ".summary__content",
+      "image": ".summary_image img",
+      "latest_chapter": ".wp-manga-chapter a",
+      "latest_date": ".chapter-release-date i",
+      "rating": "#averagerate, .score",
+      "meta_container": ".post-content_item",
+      "meta_key": ".summary-heading h5",
+      "meta_val": ".summary-content"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "Manhwa",
+      "urls": {
+        "Newest": "https://toonily.com/webtoons/?m_orderby=new-manga",
+        "Latest": "https://toonily.com/webtoons/?m_orderby=latest",
+        "Popular": "https://toonily.com/webtoons/?m_orderby=popular",
+        "Rating": "https://toonily.com/webtoons/?m_orderby=rating",
+        "A-Z": "https://toonily.com/webtoons/?m_orderby=alphabet"
+      }
+    }
+  ]
+}

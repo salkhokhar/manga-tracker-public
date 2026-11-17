@@ -1,0 +1,80 @@
+{
+  "name": "Manga Clash",
+  "theme": "madara",
+  "search_url": "https://mangaclash.com/?s={query}&post_type=wp-manga",
+  "selectors": {
+    "explore": {
+      "item": ".page-item-detail",
+      "title": "h3 a",
+      "link": "h3 a",
+      "image": "img",
+      "image_attr": "data-src, src",
+      "latest_chapter": ".chapter-item .chapter a",
+      "date": ".chapter-item .post-on a, .chapter-item .post-on"
+    },
+    "search": {
+      "item": ".c-tabs-item__content",
+      "title": ".post-title h3 a",
+      "link": ".post-title h3 a",
+      "image": "img",
+      "image_attr": "data-src, src",
+      "latest_chapter": ".font-meta.chapter",
+      "date": ""
+    },
+    "details": {
+      "title": ".post-title h1",
+      "author": ".author-content a",
+      "genre": ".genres-content a",
+      "desc": ".summary__content",
+      "image": ".summary_image img",
+      "latest_chapter": ".wp-manga-chapter a",
+      "latest_date": ".chapter-release-date i",
+      "rating": "#averagerate, .score",
+      "meta_container": ".post-content_item",
+      "meta_key": ".summary-heading h5",
+      "meta_val": ".summary-content"
+    },
+    "chapters": {
+      "item": "#chapterlist li, .wp-manga-chapter",
+      "link": "a",
+      "title": ".chapternum, a",
+      "date": ".chapterdate"
+    },
+    "images": {
+      "item": ".reading-content img",
+      "src_attr": "data-src, src"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "Manhwa",
+      "urls": {
+        "Newest": "https://mangaclash.com/manga-genre/manhwa/?m_orderby=new-manga",
+        "Latest": "https://mangaclash.com/manga-genre/manhwa/?m_orderby=latest",
+        "Popular": "https://mangaclash.com/manga-genre/manhwa/?m_orderby=trending",
+        "Rating": "https://mangaclash.com/manga-genre/manhwa/?m_orderby=rating",
+        "A-Z": "https://mangaclash.com/manga-genre/manhwa/?m_orderby=alphabet"
+      }
+    },
+    {
+      "type": "Manga",
+      "urls": {
+        "Newest": "https://mangaclash.com/manga-genre/manga/?m_orderby=new-manga",
+        "Latest": "https://mangaclash.com/manga-genre/manga/?m_orderby=latest",
+        "Popular": "https://mangaclash.com/manga-genre/manga/?m_orderby=trending",
+        "Rating": "https://mangaclash.com/manga-genre/manga/?m_orderby=rating",
+        "A-Z": "https://mangaclash.com/manga-genre/manga/?m_orderby=alphabet"
+      }
+    },
+    {
+      "type": "Manhua",
+      "urls": {
+        "Newest": "https://mangaclash.com/manga-genre/manhua/?m_orderby=new-manga",
+        "Latest": "https://mangaclash.com/manga-genre/manhua/?m_orderby=latest",
+        "Popular": "https://mangaclash.com/manga-genre/manhua/?m_orderby=trending",
+        "Rating": "https://mangaclash.com/manga-genre/manhua/?m_orderby=rating",
+        "A-Z": "https://mangaclash.com/manga-genre/manhua/?m_orderby=alphabet"
+      }
+    }
+  ]
+}

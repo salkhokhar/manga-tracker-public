@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "Manga Tracker",
+    "slug": "manga-tracker",
+    "owner": "kindtracklabs",
+    "version": "1.0.0",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "mangatracker",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "updates": {
+      "url": "https://u.expo.dev/d71dfdf9-6e49-4376-aa47-dee1536380ae"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d71dfdf9-6e49-4376-aa47-dee1536380ae"
+      }
+    }
+  }
+}

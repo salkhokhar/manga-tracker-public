@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.log
+perf_log.txt
+
+# Covers mapping (heavy files)
+covers/
+
+# Chrome embedded profile
+.app_profile/
+
+*.xlsx
+
+# Secrets & session tokens — never commit these
+.env
+# Variants like .env.local / .env.production too; the committed templates stay visible
+.env.*
+!.env.example
+.session.json
+
+# React Native / Expo
+node_modules/
+.expo/
+.expo-shared/
+dist/
+*.tsbuildinfo
+ios/Pods/
+ios/build/
+android/.gradle/
+android/build/
+android/app/build/
+
+# Editor / tool caches
+.claude/
+.vscode/
+.idea/
+.DS_Store
+
+# Temp Files
+.temp/
+
+# Personal library databases stay in the private repo
+*.db

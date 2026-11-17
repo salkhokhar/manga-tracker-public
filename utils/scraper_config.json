@@ -1,0 +1,49 @@
+{
+  "mangaread.org": {
+    "name": "MangaRead",
+    "theme": "madara",
+    "search_url": "https://www.mangaread.org/?s={query}&post_type=wp-manga"
+  },
+  "asurascans.com": {
+    "name": "Asura Scans",
+    "theme": "custom",
+    "search_url": "https://asurascans.com/browse?q={query}",
+    "selectors": {
+      "explore": { "item": ".series-card", "title": "h3", "link": "a", "image": "img", "image_attr": "src", "latest_chapter": "p[class*='text-gray-400']", "date": "" },
+      "search": { "item": ".series-card", "title": "h3", "link": "a", "image": "img", "image_attr": "src", "latest_chapter": "", "date": "" },
+      "details": { "title": "h1", "author": "a[href*='/browse?author=']", "genre": "a[href*='/browse?genres=']", "desc": ".summary__content", "image": "img[src*='/covers/']", "latest_chapter": "a[href*='/chapter/']", "latest_date": "", "rating": ".rating", "meta_container": ".post-content_item", "meta_key": ".summary-heading h5", "meta_val": ".summary-content" },
+      "chapters": { "item": "a[href*='/chapter/']", "link": "self", "title": "self", "date": "" },
+      "images": { "item": "img[src*='chapters'], img[src*='asura-images/chapters']", "src_attr": "src" }
+    }
+  },
+  "fanfox.net": {
+    "name": "MangaFox",
+    "theme": "custom",
+    "search_url": "https://fanfox.net/search?title={query}",
+    "selectors": {
+      "explore": { "item": ".manga-list-1-list li, .manga-list-4-list li", "title": ".manga-list-1-item-title a, .manga-list-4-item-title a", "link": ".manga-list-1-item-title a, .manga-list-4-item-title a", "image": "img.manga-list-1-cover, img.manga-list-4-cover", "image_attr": "src", "latest_chapter": ".manga-list-1-item-subtitle a, .manga-list-4-item-tip a", "date": "" },
+      "search": { "item": ".manga-list-4-list li", "title": ".manga-list-4-item-title a", "link": ".manga-list-4-item-title a", "image": "img.manga-list-4-cover", "image_attr": "src", "latest_chapter": ".manga-list-4-item-tip a", "date": "" },
+      "details": { "title": ".detail-info-right-title-font", "author": ".detail-info-right-say a", "genre": ".detail-info-right-tag-list a", "desc": ".full-show, .detail-info-right-content", "image": ".detail-info-cover img", "latest_chapter": ".detail-main-list li a", "latest_date": ".detail-main-list-item-time", "rating": ".detail-info-right-title-star", "meta_container": ".detail-info-right", "meta_key": "p", "meta_val": "span" },
+      "chapters": { "item": ".detail-main-list li", "link": "a", "title": ".title3, a", "date": ".title2" },
+      "images": { "item": "img.reader-main-img", "src_attr": "data-src, src" }
+    }
+  },
+  "toonily.com": { "name": "Toonily", "theme": "madara" },
+  "gourmetsupremacy.com": { "name": "Gourmet Scans", "theme": "mangareader" },
+  "arenascan.com": { "name": "Arena Scans", "theme": "mangareader" },
+  "kingofshojo.com": { "name": "KingOfShojo", "theme": "mangareader" },
+  "mangaclash.com": { "name": "Manga Clash", "theme": "madara" },
+  "default": {
+    "name": "Madara Theme Default",
+    "theme": "madara",
+    "search_url": "https://{domain}/?s={query}&post_type=wp-manga",
+    "explore_page_template": "{base_url}/page/{page}/?{query_params}",
+    "selectors": {
+      "explore": { "item": ".page-item-detail, .bsx", "title": "h3 a, .tt", "link": "h3 a, a", "image": "img", "image_attr": "data-src, src", "latest_chapter": ".chapter-item .chapter a, .epxs", "date": ".chapter-item .post-on a, .chapter-item .post-on" },
+      "search": { "item": ".c-tabs-item__content, .bsx", "title": ".post-title h3 a, .tt", "link": ".post-title h3 a, a", "image": "img", "image_attr": "data-src, src", "latest_chapter": ".font-meta.chapter, .epxs", "date": "" },
+      "details": { "title": ".post-title h1, .entry-title", "author": ".author-content a, .imptdt:-soup-contains('Author') i", "genre": ".genres-content a, .mgen a", "desc": ".summary__content, .entry-content", "image": ".summary_image img, .thumb img", "latest_chapter": ".wp-manga-chapter a, .eph-num a", "latest_date": ".chapter-release-date i, .chapterdate", "rating": "#averagerate, .score, .num", "meta_container": ".post-content_item, .imptdt", "meta_key": ".summary-heading h5, b", "meta_val": ".summary-content, i" },
+      "chapters": { "item": ".wp-manga-chapter, .eph-num, a[href*='/chapter/'], #chapterlist li", "link": "self", "title": "self", "date": ".chapter-release-date i, .chapterdate, .dt" },
+      "images": { "item": ".reading-content img, #readerarea img", "src_attr": "data-src, src" }
+    }
+  }
+}

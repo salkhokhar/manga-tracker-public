@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manga Tracker</title>
+  <meta name="referrer" content="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <script>
+    const theme = localStorage.getItem("manga_theme") || "dark";
+    document.documentElement.setAttribute("data-theme", theme);
+  </script>
+</head>
+<body>
+  <div id="offline-banner" class="hidden" style="background: var(--red); color: white; text-align: center; padding: 8px; font-size: 0.85rem; font-weight: 700; position: sticky; top: 0; z-index: 1000;">
+    You are currently offline. Cloud sync and web exploration are disabled.
+  </div>
+
+  <!-- ── TOP NAV ─────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div id="nav-left">
+      <button id="back-btn" class="nav-btn hidden" onclick="showDashboard()">← Back</button>
+      <span id="nav-title">📚 Manga Tracker</span>
+    </div>
+    <div id="nav-center">
+      <div id="search-container">
+        <div style="display:flex; flex:1; width:100%;">
+          <select id="search-site" style="background:var(--bg3); border:1px solid var(--border); color:var(--text1); border-radius:18px 0 0 18px; padding:0 12px; outline:none; font-size:0.85rem; border-right:none; height:36px; max-width:180px; width:35%; flex-shrink:0; text-overflow:ellipsis;" onchange="onSearch()"></select>
+          <div id="search-wrap" style="border-radius:0 18px 18px 0; flex:1;">
+            <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input id="search" type="text" placeholder="Search library or web…" style="border-radius:0 18px 18px 0;" oninput="onSearchInput()" onkeydown="if(event.key === 'Enter') onSearch()" />
+            <button id="search-clear" class="hidden" onclick="clearSearch()">✕</button>
+          </div>
+        </div>
+        <label class="toggle-wrap" title="Include online results">
+          <input type="checkbox" id="search-online-cb" onchange="onToggleOnline()">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">🌐 Web</span>
+        </label>
+      </div>
+    </div>
+  <div id="nav-right" style="position:relative; display:flex; align-items:center; gap:12px;">
+      <div id="notif-wrapper" style="position:relative;">
+        <button id="notif-btn" class="nav-btn" style="padding:8px; border-radius:50%;" onclick="toggleNotifs()" title="Notifications">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:18px;height:18px">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+            <span id="notif-badge" style="position:absolute; top:-2px; right:-2px; background:var(--red); color:#fff; font-size:0.65rem; font-weight:bold; height:16px; min-width:16px; border-radius:8px; display:flex; align-items:center; justify-content:center; display:none; border:2px solid var(--bg2);"></span>
+        </button>
+        <div id="notif-dropdown" class="hidden" style="position:absolute; top:45px; right:0; width:280px; background:var(--bg2); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); z-index:200; display:flex; flex-direction:column; max-height:400px; overflow-y:auto; padding:8px 0;">
+            <div style="padding:8px 16px; font-weight:700; font-size:0.85rem; border-bottom:1px solid var(--border); margin-bottom:8px;">Unread Updates</div>
+            <div id="notif-list"></div>
+        </div>
+      </div>
+      <button id="theme-toggle-btn" class="nav-btn" style="padding: 8px; border-radius: 50%;" onclick="toggleTheme()" title="Toggle Theme">
+        <svg id="theme-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:18px;height:18px">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+      </button>
+      <button id="settings-btn" class="nav-btn" onclick="openSettings()">⚙ Settings</button>
+      <button id="stats-btn" class="nav-btn" onclick="openStats()">📊 Stats</button>
+      <button id="filter-btn" class="nav-btn" onclick="toggleFilterPanel()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:16px;height:16px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+        Filters
+      </button>
+      <button id="explore-btn" class="explore-nav-btn" onclick="openExplore()">🪐 Explore</button>
+  </div>
+</nav>
+
+  <!-- ── SETTINGS MODAL ───────────────────────────────────────────────── -->
+  <div id="settings-modal" class="hidden modal-overlay">
+    <div class="modal-card">
+      <h2 style="margin:0 0 20px;">Settings</h2>
+
+      <!-- Account section (shown only when logged in) -->
+      <div id="settings-account" class="hidden" style="margin-bottom:20px; padding:16px; background:var(--bg3); border:1px solid var(--border); border-radius:12px;">
+        <div style="font-size:0.75rem; font-weight:800; color:var(--text3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:10px;">Account</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <div id="settings-avatar" style="width:36px; height:36px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:800; flex-shrink:0;"></div>
+          <span id="settings-email" style="font-size:0.9rem; font-weight:600; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></span>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="nav-btn" style="flex:1; font-size:0.82rem;" onclick="triggerSync()">☁ Sync to Cloud</button>
+          <button class="nav-btn" style="flex:1; font-size:0.82rem; color:#ff7070; border-color:rgba(255,112,112,0.3);" onclick="doLogout()">Sign Out</button>
+          <button class="nav-btn" style="flex:1; font-size:0.82rem;" onclick="exportLibrary('csv')" title="Download your library as a spreadsheet">⬇ Export CSV</button>
+          <button class="nav-btn" style="flex:1; font-size:0.82rem;" onclick="exportLibrary('json')" title="Download your library as JSON">⬇ Export JSON</button>
+          <button class="nav-btn" style="width:100%; font-size:0.82rem; color:#ff4444; border-color:rgba(255,68,68,0.3); margin-top:4px;" onclick="confirmDeleteAccount()">🗑 Delete My Account</button>
+        </div>
+      </div>
+
+      <!-- Preferences -->
+      <div style="margin-bottom:16px;">
+        <label style="display:block; margin-bottom:8px; color:var(--text2); font-size:0.85rem; font-weight:bold;">Default Explore Site</label>
+        <select id="settings-default-explore" style="width:100%; padding:10px; background:var(--bg3); border:1px solid var(--border); color:var(--text); border-radius:6px;"></select>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="display:block; margin-bottom:8px; color:var(--text2); font-size:0.85rem; font-weight:bold;">Default Search Site</label>
+        <select id="settings-default-search" style="width:100%; padding:10px; background:var(--bg3); border:1px solid var(--border); color:var(--text); border-radius:6px;"></select>
+      </div>
+
+      <!-- Donate section -->
+      <a href="https://buymeacoffee.com/kindtracklabs" target="_blank" id="donate-btn" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:16px 14px; margin-bottom:16px; background:linear-gradient(135deg,#FFDD00,#FFC600); color:#1a1500; border-radius:10px; text-decoration:none; transition:opacity 0.2s; cursor:pointer; text-align:center;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <span style="font-size:1.05rem; font-weight:800;">☕ Buy Me a Coffee</span>
+        <span style="font-size:0.82rem; font-weight:600; color:#1a1500; line-height:1.5;">This app is a labour of my love and took 100s of hours to make.<br>I'd love for you to buy me a cup of coffee 🙏</span>
+      </a>
+
+      <!-- Action buttons at the very bottom -->
+      <div style="display:flex; justify-content:flex-end; gap:12px;">
+        <button class="ch-btn" style="font-size:0.9rem; padding:8px 20px; width:auto; border-radius:8px;" onclick="closeSettings()">Cancel</button>
+        <button class="ch-btn accent" style="font-size:0.9rem; padding:8px 20px; width:auto; border-radius:8px;" onclick="saveSettings()">Save Preferences</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STATS MODAL ─────────────────────────────────────────────────── -->
+  <div id="stats-modal" class="hidden modal-overlay">
+    <div class="modal-card" style="max-width: 850px; width: 95%;">
+      <h2 style="margin:0 0 20px;">Year in Review</h2>
+      <div id="heatmap-container" style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 10px; font-size: 0.75rem;"></div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text2);">
+        <span id="heatmap-total">Loading statistics...</span>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          Less <div style="width:12px; height:12px; background:var(--bg3); border-radius:3px;"></div>
+          <div style="width:12px; height:12px; background:var(--accent); opacity:0.3; border-radius:3px;"></div>
+          <div style="width:12px; height:12px; background:var(--accent); opacity:0.6; border-radius:3px;"></div>
+          <div style="width:12px; height:12px; background:var(--accent); opacity:1.0; border-radius:3px;"></div> More
+        </div>
+      </div>
+      <button class="ch-btn accent" style="width:100%; margin-top:20px; border-radius:12px; padding:12px;" onclick="closeStats()">Close</button>
+    </div>
+  </div>
+
+  <!-- ── FILTER PANEL ─────────────────────────────────────────────────── -->
+  <div id="filter-panel" class="hidden">
+    <div class="filter-header">
+      <h3>Filters</h3>
+      <button class="nav-btn" onclick="toggleFilterPanel()">✕</button>
+    </div>
+    <div class="filter-body">
+      <div class="filter-group">
+        <h4>Category</h4>
+        <div id="filter-types" class="filter-options"></div>
+      </div>
+      <div class="filter-group">
+        <h4>Status</h4>
+        <div id="filter-statuses" class="filter-options"></div>
+      </div>
+      <div class="filter-group">
+        <h4>Genre</h4>
+        <div id="filter-genres" class="filter-options tag-cloud"></div>
+      </div>
+    </div>
+    <div class="filter-footer">
+      <button class="ch-btn" onclick="clearFilters()" style="flex:1;">Clear</button>
+      <button class="ch-btn accent" onclick="toggleFilterPanel()" style="flex:1;">Done</button>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD ────────────────────────────────────────────────────── -->
+  <div id="dashboard">
+    <div id="sort-bar">
+      <div id="sort-tabs">
+        <button class="sort-btn" data-sort="favorites">⭐ Favorites</button>
+        <button class="sort-btn" data-sort="lastRead">🕒 Last Read</button>
+        <button class="sort-btn" data-sort="latestUpdate">🔔 Latest Update</button>
+        <button class="sort-btn active" data-sort="collection">📚 Collection</button>
+      </div>
+      <div id="sort-right">
+        <span id="count-badge">0 titles</span>
+        <button id="refresh-btn" class="nav-btn" onclick="onRefreshLibrary()" title="Update latest chapters and metadata">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        </button>
+        <button id="dir-btn" onclick="toggleDir()">↓ Descending</button>
+      </div>
+    </div>
+    <div id="grid"></div>
+    <div id="empty-state" class="hidden">
+      <div class="empty-icon">📭</div>
+      <p>No manga found</p>
+    </div>
+  </div>
+
+  <!-- ── DETAIL VIEW ──────────────────────────────────────────────────── -->
+  <div id="detail" class="hidden">
+    <div id="detail-inner">
+      <div id="detail-top">
+        <img id="detail-cover" src="" alt="" />
+        <div id="detail-meta">
+          <h1 id="detail-title"></h1>
+          <div id="detail-sub">
+            <span id="detail-author"></span>
+            <span id="detail-rating"></span>
+          </div>
+          <div id="detail-altnames"></div>
+          <div id="detail-genre"></div>
+          <div id="detail-info-row">
+            <span id="detail-status" style="color:var(--text2);"></span>
+            <span id="detail-category" style="color:var(--text2);"></span>
+          </div>
+          <div id="detail-fav-row">            <button id="fav-btn" onclick="toggleFav()">🤍 Add to Favorites</button>
+            <button id="delete-btn" onclick="confirmDelete()" style="background:rgba(255, 60, 60, 0.1); color:#ff5c5c; border:1px solid rgba(255, 60, 60, 0.3); border-radius:8px; padding:8px 16px; font-weight:600; cursor:pointer;">🗑 Delete</button>
+            <a id="detail-link" href="#" target="_blank">Open on web ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="detail-progress-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div style="display: flex; flex-direction: column;">
+            <span id="detail-last-read" style="font-weight: 600; font-size: 1.05rem;"></span>
+            <span id="detail-latest" style="font-size: 0.85rem; color: var(--text2); margin-top: 4px;"></span>
+          </div>
+          <div id="chapter-row" style="margin: 0;">
+            <button class="ch-btn" onclick="changeChapter(-1)" title="Decrease Chapter">−</button>
+            <input id="chapter-input" type="number" min="0" onchange="onChapterInput()" title="Edit directly" />
+            <button class="ch-btn accent" onclick="changeChapter(1)" title="Increase Chapter">+</button>
+            <button class="ch-btn" onclick="markLatestRead()" title="Mark latest read" style="margin-left: 8px; font-size: 0.9rem; width: auto; padding: 0 12px; border-radius: 8px;">Mark latest read</button>
+          </div>
+        </div>
+        <div id="progress-wrap">
+          <div id="progress-bar"><div id="progress-fill"></div></div>
+          <span id="progress-pct"></span>
+        </div>
+      </div>
+
+      <div id="detail-add-card" class="hidden">
+        <h2>Add to Library</h2>
+        <p class="hint">This manga is from the web and not in your library. Add it to track your progress.</p>
+        <button id="add-lib-btn" class="ch-btn accent" style="width:auto; padding:0 24px; border-radius:24px; font-size:1rem; margin-top:12px;" onclick="addCurrentToLibrary()">
+          <span class="btn-text">Add to Library</span>
+        </button>
+      </div>
+
+      <div id="detail-desc-card">
+        <h2>Description</h2>
+        <p id="detail-desc"></p>
+        <div id="detail-genres"></div>
+      </div>
+
+      <div id="detail-notes-card" style="background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:20px;">
+        <h2 style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          Notes
+          <button id="save-note-btn" class="ch-btn accent" style="width:auto; padding:4px 12px; font-size:0.8rem; border-radius:12px; display:none;" onclick="saveNote()">Save</button>
+        </h2>
+        <textarea id="detail-notes-input" style="width:100%; min-height:80px; background:var(--bg3); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:12px; font-family:inherit; font-size:0.9rem; resize:vertical; outline:none;" placeholder="Add private notes or bookmarks..." oninput="document.getElementById('save-note-btn').style.display='block'"></textarea>
+      </div>
+
+      <div id="detail-chapter-card" class="hidden">
+        <h2>Chapters</h2>
+        <div id="chapter-spinner" class="spinner center hidden" style="margin:20px auto;"></div>
+        <div id="chapter-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="explore-view" class="hidden">
+    <div id="explore-header">
+       <div id="explore-controls">
+         <div class="control-group">
+           <label>Site</label>
+           <select id="explore-site" onchange="updateExploreView()"></select>
+         </div>
+         <div class="control-group">
+           <label>Category</label>
+           <select id="explore-cat" onchange="updateExploreView()">
+             <option value="all">All Genres</option>
+             <option value="manhwa" selected>Manhwa</option>
+             <option value="manhua">Manhua</option>
+             <option value="manga">Manga</option>
+           </select>
+         </div>
+         <div class="control-group">
+           <label>Status</label>
+           <select id="explore-status" onchange="updateExploreView()">
+             <option value="all" selected>All Status</option>
+             <option value="ongoing">Ongoing</option>
+             <option value="completed">Completed</option>
+             <option value="updated">New Updated</option>
+           </select>
+         </div>
+         <div class="control-group">
+           <label>Order By</label>
+           <select id="explore-order" onchange="updateExploreView()">
+             <option value="new-manga" selected>Newest</option>
+             <option value="latest">Latest</option>
+             <option value="trending">Popular</option>
+             <option value="rating">Rating</option>
+             <option value="alphabet">A-Z</option>
+           </select>
+         </div>
+       </div>
+       <button id="close-explore" class="explore-back-btn" onclick="closeExplore()">← Library</button>
+    </div>
+    <div id="explore-content">
+       <div id="explore-spinner" class="spinner center"></div>
+       <div id="explore-grid" class="grid hidden"></div>
+    </div>
+  </div>
+
+  <div id="reader" class="hidden">
+    <div id="reader-content"></div>
+    <div id="reader-floating-bar">
+       <button id="reader-back" title="Back to Details" onclick="closeReader()">⟵</button>
+       <div id="reader-title">Chapter Name</div>
+       <button id="reader-prev" title="Previous Chapter" onclick="prevReaderChapter()">⏮</button>
+       <div class="zoom-controls">
+         <button title="Zoom Out" onclick="changeZoom(-0.1)">➖</button>
+         <button title="Zoom In" onclick="changeZoom(0.1)">➕</button>
+       </div>
+       <button id="reader-next" class="accent" title="Next Chapter" onclick="nextReaderChapter()">⏭</button>
+    </div>
+  </div>
+
+  <!-- ── AUTH OVERLAY ─────────────────────────────────────────────────── -->
+  <div id="auth-overlay">
+    <div id="auth-card">
+      <div id="auth-logo">
+        <span class="logo-icon">📚</span>
+        <h1>Manga Tracker</h1>
+        <p>Sign in to sync your library to the cloud</p>
+      </div>
+      <div id="auth-tabs">
+        <button id="tab-login" class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+        <button id="tab-register" class="auth-tab" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+      <div id="auth-error" class="auth-msg error hidden"></div>
+      <div id="auth-success" class="auth-msg success hidden"></div>
+      <input id="auth-email" type="text" class="auth-input" placeholder="Email or username" autocomplete="username" onkeydown="if(event.key==='Enter')submitAuth()" />
+      <input id="auth-username" type="text" class="auth-input hidden" placeholder="Username (e.g. cool_reader99)" autocomplete="username" maxlength="20" onkeydown="if(event.key==='Enter')submitAuth()" />
+      <input id="auth-password" type="password" class="auth-input" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')submitAuth()" />
+      <input id="auth-confirm-password" type="password" class="auth-input hidden" placeholder="Confirm password" autocomplete="new-password" onkeydown="if(event.key==='Enter')submitAuth()" />
+      <button id="auth-submit-btn" class="auth-submit" onclick="submitAuth()">Sign In</button>
+
+      <!-- Social login -->
+      <div class="auth-divider"><span>or continue with</span></div>
+      <div class="oauth-row">
+        <button class="oauth-btn" onclick="signInWithOAuth('google')" style="width:100%;">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Sign in with Google
+        </button>
+      </div>
+
+      <p id="auth-switch">Don't have an account? <a href="#" onclick="switchAuthTab('register'); return false;">Create one</a></p>
+    </div>
+  </div>
+
+  <!-- ── COMPLETE PROFILE OVERLAY (OAuth users without a username) ─────────── -->
+  <div id="complete-profile-overlay" class="hidden">
+    <div id="auth-card">
+      <div id="auth-logo">
+        <span class="logo-icon">🎭</span>
+        <h1 style="color:var(--accent2);">One More Step</h1>
+        <p>Choose a username to complete your profile.</p>
+      </div>
+      <div id="cp-error" class="auth-msg error hidden"></div>
+      <input id="cp-username" type="text" class="auth-input" placeholder="Username (e.g. cool_reader99)" maxlength="20" onkeydown="if(event.key==='Enter')submitUsername()" />
+      <button id="cp-submit-btn" class="auth-submit" onclick="submitUsername()">Create Profile</button>
+    </div>
+  </div>
+
+  <!-- ── LOADING OVERLAY ──────────────────────────────────────────────── -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Loading your library…</p>
+  </div>
+
+  <!-- ── PROGRESS TOAST ──────────────────────────────────────────────── -->
+  <div id="refresh-toast" class="hidden">
+    <div id="toast-icon">🔄</div>
+    <div id="toast-content">
+      <div id="toast-title">Refreshing Library...</div>
+      <div id="toast-status">Preparing...</div>
+      <div id="toast-progress-wrap">
+        <div id="toast-progress-bar"><div id="toast-progress-fill"></div></div>
+        <span id="toast-progress-text">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js?v=3"></script>
+  <script src="reader.js?v=3"></script>
+  <script src="explore.js?v=3"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>

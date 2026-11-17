@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Confirmed — Manga Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f13;
+      color: #e2e2f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #1a1a24;
+      border: 1px solid #2a2a3a;
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+      animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .icon { font-size: 3.5rem; display: block; margin-bottom: 20px; }
+    h1 { font-size: 1.7rem; font-weight: 800; color: #a78bfa; margin-bottom: 12px; }
+    .subtitle {
+      font-size: 0.95rem; color: #9090b0; line-height: 1.7; margin-bottom: 32px;
+    }
+    .btn {
+      display: inline-block; padding: 13px 32px;
+      background: #6c63ff; color: #fff;
+      border: none; border-radius: 10px;
+      font-size: 1rem; font-weight: 700; font-family: inherit;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(108,99,255,0.35);
+    }
+    .btn:hover { background: #5a52e8; box-shadow: 0 6px 20px rgba(108,99,255,0.55); transform: translateY(-1px); }
+
+    .status {
+      font-size: 0.85rem; color: #9090b0; margin-top: 20px;
+    }
+    .status.error { color: #fc8181; }
+    .status.success { color: #86efac; }
+    .spinner {
+      display: inline-block; width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-top-color: #6c63ff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="icon" id="icon">📚</span>
+    <h1 id="heading">Confirming your email…</h1>
+    <p class="subtitle" id="subtitle">
+      Please wait while we verify your account.
+    </p>
+    <p class="status" id="status">
+      <span class="spinner"></span> Verifying…
+    </p>
+    <a href="/" id="open-btn" class="btn hidden">Open Manga Tracker</a>
+  </div>
+
+  <script>
+    const icon      = document.getElementById('icon');
+    const heading   = document.getElementById('heading');
+    const subtitle  = document.getElementById('subtitle');
+    const status    = document.getElementById('status');
+    const openBtn   = document.getElementById('open-btn');
+
+    function setSuccess(autoRedirect = false) {
+      icon.textContent = '✅';
+      if (autoRedirect) {
+        heading.textContent  = 'Signed In!';
+        subtitle.textContent = 'You\'re signed in. Taking you to your library…';
+        status.classList.add('hidden');
+        setTimeout(() => window.location.href = '/', 1800);
+      } else {
+        heading.textContent  = 'Email Confirmed!';
+        subtitle.textContent = 'Your account is ready. Click the button below to open Manga Tracker and sign in.';
+        status.classList.add('hidden');
+        openBtn.classList.remove('hidden');
+      }
+    }
+
+    function setError(msg) {
+      icon.textContent    = '❌';
+      heading.textContent = 'Verification Failed';
+      subtitle.textContent = msg || 'Something went wrong. Please try again.';
+      status.textContent  = '';
+      status.classList.add('error');
+    }
+
+    async function callBackend(url, body) {
+      const res  = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      return res.json();
+    }
+
+    async function handleConfirm() {
+      const hash    = window.location.hash.substring(1);
+      const fParams = new URLSearchParams(hash);
+      const qParams = new URLSearchParams(window.location.search);
+
+      const access     = fParams.get('access_token');
+      const refresh    = fParams.get('refresh_token');
+      const tokenHash  = qParams.get('token_hash');
+      const qType      = qParams.get('type');
+      const code       = qParams.get('code');   // ← OAuth PKCE code
+
+      try {
+        if (access && refresh) {
+          // Email confirmation — fragment flow
+          const data = await callBackend('/api/auth/callback', { access_token: access, refresh_token: refresh });
+          data.ok ? setSuccess(false) : setError(data.msg);
+
+        } else if (code) {
+          // OAuth (Google / Facebook) — PKCE authorization code
+          const data = await callBackend('/api/auth/exchange_code', { code });
+          data.ok ? setSuccess(true) : setError(data.msg);
+
+        } else if (tokenHash) {
+          // OTP / magic-link verification
+          const data = await callBackend('/api/auth/verify_otp', { token_hash: tokenHash, type: qType || 'signup' });
+          data.ok ? setSuccess(false) : setError(data.msg);
+
+        } else {
+          setError('Verification link is invalid or has already been used. Please sign in if you already verified, or register again.');
+        }
+      } catch (e) {
+        setError('Could not connect to the app. Make sure Manga Tracker is running, then try again.');
+      }
+    }
+
+    handleConfirm();
+  </script>
+</body>
+</html>

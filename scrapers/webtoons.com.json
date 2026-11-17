@@ -1,0 +1,215 @@
+{
+  "name": "Webtoons",
+  "theme": "custom",
+  "rating_scale": 10,
+  "requires_proxy": true,
+  "search_url": "https://www.webtoons.com/en/search?keyword={query}",
+  "selectors": {
+    "explore": {
+      "item": "ul.webtoon_list li, .card_lst li, .lst_type1 li, .ranking_lst li, #_searchList li",
+      "title": ".title, .subj, .ellipsis",
+      "link": "a",
+      "image": "img",
+      "image_attr": "src"
+    },
+    "details": {
+      "title": ".subj",
+      "author": ".author",
+      "desc": ".summary",
+      "image": ".detail_header .info img",
+      "genre": ".genre",
+      "rating": "#_starScoreAverage",
+      "meta_container": ".day_info",
+      "meta_key": "self",
+      "meta_val": "self"
+    },
+    "chapters": {
+      "item": "#_listUl li",
+      "link": "a",
+      "title": ".subj span",
+      "date": ".date"
+    },
+    "images": {
+      "item": "#_imageList img",
+      "src_attr": "data-url, src"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "DRAMA",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/drama?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/drama?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/drama?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/drama?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "FANTASY",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/fantasy?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/fantasy?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/fantasy?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/fantasy?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "COMEDY",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/comedy?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/comedy?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/comedy?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/comedy?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "ACTION",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/action?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/action?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/action?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/action?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "SLICE OF LIFE",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/slice_of_life?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/slice_of_life?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/slice_of_life?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/slice_of_life?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "ROMANCE",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/romance?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/romance?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/romance?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/romance?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "SUPERHERO",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/super_hero?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/super_hero?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/super_hero?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/super_hero?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "SCI-FI",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/sf?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/sf?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/sf?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/sf?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "THRILLER",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/thriller?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/thriller?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/thriller?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/thriller?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "SUPERNATURAL",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/supernatural?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/supernatural?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/supernatural?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/supernatural?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "MYSTERY",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/mystery?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/mystery?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/mystery?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/mystery?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "SPORTS",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/sports?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/sports?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/sports?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/sports?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "HISTORICAL",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/historical?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/historical?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/historical?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/historical?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "HEARTWARMING",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/heartwarming?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/heartwarming?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/heartwarming?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/heartwarming?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "HORROR",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/horror?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/horror?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/horror?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/horror?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "GRAPHIC NOVEL",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/graphic_novel?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/graphic_novel?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/graphic_novel?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/graphic_novel?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "INFORMATIVE",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/genres/tiptoon?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/genres/tiptoon?sortOrder=",
+        "Popular": "https://www.webtoons.com/en/genres/tiptoon?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/genres/tiptoon?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "Originals",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/originals/saturday?sortOrder=UPDATE",
+        "Latest": "https://www.webtoons.com/en/originals",
+        "Popular": "https://www.webtoons.com/en/originals/saturday?sortOrder=MANA",
+        "Rating": "https://www.webtoons.com/en/originals/saturday?sortOrder=LIKEIT"
+      }
+    },
+    {
+      "type": "Disney",
+      "urls": {
+        "Latest": "https://www.webtoons.com/en/disney"
+      }
+    },
+    {
+      "type": "Ranking",
+      "urls": {
+        "Newest": "https://www.webtoons.com/en/ranking",
+        "Latest": "https://www.webtoons.com/en/ranking/popular",
+        "Popular": "https://www.webtoons.com/en/ranking/canvas"
+      }
+    }
+  ]
+}

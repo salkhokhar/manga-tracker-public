@@ -1,0 +1,993 @@
+{
+  "name": "Asura Scans",
+  "theme": "custom",
+  "rating_scale": 10,
+  "requires_proxy": true,
+  "force_playwright": true,
+  "search_url": "https://asurascans.com/browse?q={query}",
+  "selectors": {
+    "explore": {
+      "item": ".series-card",
+      "title": "h3",
+      "link": "a",
+      "image": "img",
+      "image_attr": "src",
+      "latest_chapter": "p[class*='text-gray-400']",
+      "date": ""
+    },
+    "search": {
+      "item": ".series-card",
+      "title": "h3",
+      "link": "a",
+      "image": "img",
+      "image_attr": "src",
+      "latest_chapter": "",
+      "date": ""
+    },
+    "details": {
+      "title": "h1",
+      "author": "a[href*='/browse?author=']",
+      "genre": "a[href*='/browse?genres=']",
+      "desc": ".summary__content",
+      "image": "img[src*='/covers/']",
+      "latest_chapter": "a[href*='/chapter/']",
+      "latest_date": "",
+      "rating": ".rating",
+      "meta_container": "div[class*='bg-[#1C1924]']",
+      "meta_key": "div.text-xs",
+      "meta_val": "span.font-bold"
+    },
+    "chapters": {
+      "item": "a.group[href*='/chapter/']",
+      "link": "self",
+      "title": "span.font-medium",
+      "date": "div.text-right span"
+    },
+    "images": {
+      "item": "img[src*='chapters'], img[src*='asura-images/chapters'], .vimport-container img",
+      "src_attr": "src"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "All",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?sort=newest",
+        "Latest": "https://asurascans.com/browse?",
+        "Popular": "https://asurascans.com/browse?sort=popular",
+        "Rating": "https://asurascans.com/browse?sort=rating",
+        "A-Z": "https://asurascans.com/browse?sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Action",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=action&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=action&",
+        "Popular": "https://asurascans.com/browse?genres=action&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=action&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=action&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Adventure",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=adventure&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=adventure&",
+        "Popular": "https://asurascans.com/browse?genres=adventure&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=adventure&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=adventure&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Comedy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=comedy&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=comedy&",
+        "Popular": "https://asurascans.com/browse?genres=comedy&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=comedy&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=comedy&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Crazy MC",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=crazy-mc&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=crazy-mc&",
+        "Popular": "https://asurascans.com/browse?genres=crazy-mc&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=crazy-mc&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=crazy-mc&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Demon",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=demon&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=demon&",
+        "Popular": "https://asurascans.com/browse?genres=demon&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=demon&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=demon&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Dungeons",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=dungeons&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=dungeons&",
+        "Popular": "https://asurascans.com/browse?genres=dungeons&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=dungeons&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=dungeons&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Fantasy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=fantasy&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=fantasy&",
+        "Popular": "https://asurascans.com/browse?genres=fantasy&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=fantasy&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=fantasy&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Game",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=game&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=game&",
+        "Popular": "https://asurascans.com/browse?genres=game&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=game&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=game&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Genius MC",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=genius-mc&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=genius-mc&",
+        "Popular": "https://asurascans.com/browse?genres=genius-mc&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=genius-mc&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=genius-mc&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Isekai",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=isekai&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=isekai&",
+        "Popular": "https://asurascans.com/browse?genres=isekai&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=isekai&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=isekai&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Kuchikuchi",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=kuchikuchi&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=kuchikuchi&",
+        "Popular": "https://asurascans.com/browse?genres=kuchikuchi&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=kuchikuchi&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=kuchikuchi&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Magic",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=magic&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=magic&",
+        "Popular": "https://asurascans.com/browse?genres=magic&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=magic&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=magic&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Martial Arts",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=martial-arts&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=martial-arts&",
+        "Popular": "https://asurascans.com/browse?genres=martial-arts&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=martial-arts&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=martial-arts&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Murim",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=murim&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=murim&",
+        "Popular": "https://asurascans.com/browse?genres=murim&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=murim&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=murim&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Mystery",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=mystery&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=mystery&",
+        "Popular": "https://asurascans.com/browse?genres=mystery&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=mystery&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=mystery&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Necromancer",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=necromancer&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=necromancer&",
+        "Popular": "https://asurascans.com/browse?genres=necromancer&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=necromancer&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=necromancer&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Overpowered",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=overpowered&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=overpowered&",
+        "Popular": "https://asurascans.com/browse?genres=overpowered&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=overpowered&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=overpowered&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Regression",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=regression&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=regression&",
+        "Popular": "https://asurascans.com/browse?genres=regression&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=regression&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=regression&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Reincarnation",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=reincarnation&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=reincarnation&",
+        "Popular": "https://asurascans.com/browse?genres=reincarnation&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=reincarnation&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=reincarnation&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Revenge",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=revenge&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=revenge&",
+        "Popular": "https://asurascans.com/browse?genres=revenge&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=revenge&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=revenge&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Romance",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=romance&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=romance&",
+        "Popular": "https://asurascans.com/browse?genres=romance&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=romance&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=romance&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - School Life",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=school-life&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=school-life&",
+        "Popular": "https://asurascans.com/browse?genres=school-life&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=school-life&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=school-life&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Sci-fi",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=sci-fi&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=sci-fi&",
+        "Popular": "https://asurascans.com/browse?genres=sci-fi&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=sci-fi&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=sci-fi&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Shoujo",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=shoujo&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=shoujo&",
+        "Popular": "https://asurascans.com/browse?genres=shoujo&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=shoujo&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=shoujo&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Shounen",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=shounen&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=shounen&",
+        "Popular": "https://asurascans.com/browse?genres=shounen&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=shounen&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=shounen&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - System",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=system&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=system&",
+        "Popular": "https://asurascans.com/browse?genres=system&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=system&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=system&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Tower",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=tower&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=tower&",
+        "Popular": "https://asurascans.com/browse?genres=tower&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=tower&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=tower&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Tragedy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=tragedy&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=tragedy&",
+        "Popular": "https://asurascans.com/browse?genres=tragedy&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=tragedy&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=tragedy&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Villain",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=villain&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=villain&",
+        "Popular": "https://asurascans.com/browse?genres=villain&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=villain&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=villain&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "All - Violence",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=violence&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=violence&",
+        "Popular": "https://asurascans.com/browse?genres=violence&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=violence&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=violence&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?type=manhwa&",
+        "Popular": "https://asurascans.com/browse?type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Action",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=action&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=action&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=action&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=action&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=action&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Adventure",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=adventure&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=adventure&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=adventure&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=adventure&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=adventure&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Comedy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=comedy&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=comedy&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=comedy&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=comedy&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=comedy&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Crazy MC",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=crazy-mc&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=crazy-mc&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=crazy-mc&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=crazy-mc&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=crazy-mc&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Demon",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=demon&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=demon&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=demon&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=demon&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=demon&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Dungeons",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=dungeons&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=dungeons&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=dungeons&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=dungeons&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=dungeons&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Fantasy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=fantasy&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=fantasy&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=fantasy&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=fantasy&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=fantasy&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Game",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=game&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=game&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=game&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=game&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=game&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Genius MC",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=genius-mc&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=genius-mc&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=genius-mc&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=genius-mc&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=genius-mc&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Isekai",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=isekai&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=isekai&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=isekai&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=isekai&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=isekai&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Kuchikuchi",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=kuchikuchi&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=kuchikuchi&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=kuchikuchi&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=kuchikuchi&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=kuchikuchi&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Magic",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=magic&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=magic&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=magic&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=magic&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=magic&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Martial Arts",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=martial-arts&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=martial-arts&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=martial-arts&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=martial-arts&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=martial-arts&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Murim",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=murim&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=murim&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=murim&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=murim&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=murim&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Mystery",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=mystery&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=mystery&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=mystery&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=mystery&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=mystery&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Necromancer",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=necromancer&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=necromancer&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=necromancer&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=necromancer&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=necromancer&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Overpowered",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=overpowered&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=overpowered&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=overpowered&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=overpowered&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=overpowered&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Regression",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=regression&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=regression&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=regression&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=regression&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=regression&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Reincarnation",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=reincarnation&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=reincarnation&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=reincarnation&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=reincarnation&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=reincarnation&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Revenge",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=revenge&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=revenge&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=revenge&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=revenge&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=revenge&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Romance",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=romance&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=romance&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=romance&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=romance&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=romance&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - School Life",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=school-life&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=school-life&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=school-life&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=school-life&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=school-life&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Sci-fi",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=sci-fi&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=sci-fi&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=sci-fi&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=sci-fi&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=sci-fi&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Shoujo",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=shoujo&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=shoujo&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=shoujo&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=shoujo&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=shoujo&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Shounen",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=shounen&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=shounen&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=shounen&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=shounen&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=shounen&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - System",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=system&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=system&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=system&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=system&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=system&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Tower",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=tower&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=tower&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=tower&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=tower&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=tower&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Tragedy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=tragedy&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=tragedy&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=tragedy&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=tragedy&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=tragedy&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Villain",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=villain&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=villain&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=villain&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=villain&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=villain&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhwa - Violence",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=violence&type=manhwa&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=violence&type=manhwa&",
+        "Popular": "https://asurascans.com/browse?genres=violence&type=manhwa&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=violence&type=manhwa&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=violence&type=manhwa&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?type=manhua&",
+        "Popular": "https://asurascans.com/browse?type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Action",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=action&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=action&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=action&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=action&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=action&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Adventure",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=adventure&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=adventure&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=adventure&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=adventure&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=adventure&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Comedy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=comedy&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=comedy&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=comedy&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=comedy&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=comedy&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Crazy MC",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=crazy-mc&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=crazy-mc&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=crazy-mc&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=crazy-mc&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=crazy-mc&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Demon",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=demon&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=demon&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=demon&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=demon&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=demon&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Dungeons",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=dungeons&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=dungeons&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=dungeons&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=dungeons&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=dungeons&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Fantasy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=fantasy&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=fantasy&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=fantasy&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=fantasy&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=fantasy&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Game",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=game&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=game&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=game&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=game&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=game&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Genius MC",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=genius-mc&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=genius-mc&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=genius-mc&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=genius-mc&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=genius-mc&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Isekai",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=isekai&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=isekai&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=isekai&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=isekai&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=isekai&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Kuchikuchi",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=kuchikuchi&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=kuchikuchi&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=kuchikuchi&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=kuchikuchi&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=kuchikuchi&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Magic",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=magic&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=magic&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=magic&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=magic&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=magic&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Martial Arts",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=martial-arts&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=martial-arts&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=martial-arts&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=martial-arts&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=martial-arts&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Murim",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=murim&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=murim&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=murim&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=murim&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=murim&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Mystery",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=mystery&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=mystery&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=mystery&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=mystery&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=mystery&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Necromancer",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=necromancer&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=necromancer&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=necromancer&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=necromancer&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=necromancer&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Overpowered",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=overpowered&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=overpowered&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=overpowered&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=overpowered&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=overpowered&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Regression",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=regression&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=regression&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=regression&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=regression&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=regression&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Reincarnation",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=reincarnation&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=reincarnation&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=reincarnation&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=reincarnation&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=reincarnation&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Revenge",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=revenge&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=revenge&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=revenge&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=revenge&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=revenge&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Romance",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=romance&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=romance&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=romance&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=romance&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=romance&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - School Life",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=school-life&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=school-life&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=school-life&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=school-life&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=school-life&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Sci-fi",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=sci-fi&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=sci-fi&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=sci-fi&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=sci-fi&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=sci-fi&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Shoujo",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=shoujo&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=shoujo&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=shoujo&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=shoujo&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=shoujo&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Shounen",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=shounen&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=shounen&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=shounen&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=shounen&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=shounen&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - System",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=system&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=system&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=system&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=system&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=system&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Tower",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=tower&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=tower&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=tower&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=tower&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=tower&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Tragedy",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=tragedy&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=tragedy&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=tragedy&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=tragedy&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=tragedy&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Villain",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=villain&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=villain&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=villain&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=villain&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=villain&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "Manhua - Violence",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?genres=violence&type=manhua&sort=newest",
+        "Latest": "https://asurascans.com/browse?genres=violence&type=manhua&",
+        "Popular": "https://asurascans.com/browse?genres=violence&type=manhua&sort=popular",
+        "Rating": "https://asurascans.com/browse?genres=violence&type=manhua&sort=rating",
+        "A-Z": "https://asurascans.com/browse?genres=violence&type=manhua&sort=name&order=asc"
+      }
+    },
+    {
+      "type": "MangaToon",
+      "urls": {
+        "Newest": "https://asurascans.com/browse?type=manga&sort=newest",
+        "Latest": "https://asurascans.com/browse?type=manga&",
+        "Popular": "https://asurascans.com/browse?type=manga&sort=popular",
+        "Rating": "https://asurascans.com/browse?type=manga&sort=rating",
+        "A-Z": "https://asurascans.com/browse?type=manga&sort=name&order=asc"
+      }
+    }
+  ]
+}

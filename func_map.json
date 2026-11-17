@@ -1,0 +1,322 @@
+[
+  {
+    "line": 13,
+    "func": "// Track scroll position"
+  },
+  {
+    "line": 14,
+    "func": "// track pages loaded per combination"
+  },
+  {
+    "line": 51,
+    "func": "// Must run first "
+  },
+  {
+    "line": 62,
+    "func": "async function loadSites"
+  },
+  {
+    "line": 72,
+    "func": "function populateSiteDropdowns"
+  },
+  {
+    "line": 97,
+    "func": "// Trigger update for explore filters based on selected site"
+  },
+  {
+    "line": 101,
+    "func": "function onExploreSiteChange"
+  },
+  {
+    "line": 141,
+    "func": "function openSettings"
+  },
+  {
+    "line": 147,
+    "func": "// Show username "
+  },
+  {
+    "line": 160,
+    "func": "function closeSettings"
+  },
+  {
+    "line": 164,
+    "func": "function saveSettings"
+  },
+  {
+    "line": 176,
+    "func": "async function loadComics"
+  },
+  {
+    "line": 185,
+    "func": "function hideLoader"
+  },
+  {
+    "line": 194,
+    "func": "async function checkAuthStatus"
+  },
+  {
+    "line": 201,
+    "func": "// OAuth users who just signed up won"
+  },
+  {
+    "line": 215,
+    "func": "function switchAuthTab"
+  },
+  {
+    "line": 219,
+    "func": "// Show username "
+  },
+  {
+    "line": 225,
+    "func": "// On register tab only email is valid"
+  },
+  {
+    "line": 238,
+    "func": "function _clearAuthMsg"
+  },
+  {
+    "line": 245,
+    "func": "function _showAuthMsg"
+  },
+  {
+    "line": 251,
+    "func": "async function submitAuth"
+  },
+  {
+    "line": 294,
+    "func": "async function doLogout"
+  },
+  {
+    "line": 303,
+    "func": "async function signInWithOAuth"
+  },
+  {
+    "line": 309,
+    "func": "// Redirect this window to the OAuth provider "
+  },
+  {
+    "line": 319,
+    "func": "async function submitUsername"
+  },
+  {
+    "line": 351,
+    "func": "async function confirmDeleteAccount"
+  },
+  {
+    "line": 352,
+    "func": "// Two"
+  },
+  {
+    "line": 381,
+    "func": "async function triggerSync"
+  },
+  {
+    "line": 397,
+    "func": "function exportLibrary"
+  },
+  {
+    "line": 398,
+    "func": "// Triggers a file download directly from the backend"
+  },
+  {
+    "line": 408,
+    "func": "function getDisplayList"
+  },
+  {
+    "line": 420,
+    "func": "// Inclusive filters"
+  },
+  {
+    "line": 463,
+    "func": "function parseDate"
+  },
+  {
+    "line": 485,
+    "func": "function renderDashboard"
+  },
+  {
+    "line": 510,
+    "func": "function renderBatch"
+  },
+  {
+    "line": 525,
+    "func": "function buildCard"
+  },
+  {
+    "line": 592,
+    "func": "function setupSortButtons"
+  },
+  {
+    "line": 603,
+    "func": "function toggleDir"
+  },
+  {
+    "line": 611,
+    "func": "async function onRefreshLibrary"
+  },
+  {
+    "line": 627,
+    "func": "function toggleToast"
+  },
+  {
+    "line": 632,
+    "func": "function startPolling"
+  },
+  {
+    "line": 637,
+    "func": "async function pollRefreshStatus"
+  },
+  {
+    "line": 677,
+    "func": "function onSearchInput"
+  },
+  {
+    "line": 698,
+    "func": "function onToggleOnline"
+  },
+  {
+    "line": 707,
+    "func": "async function fetchOnlineSearch"
+  },
+  {
+    "line": 718,
+    "func": "function onSearch"
+  },
+  {
+    "line": 727,
+    "func": "function clearSearch"
+  },
+  {
+    "line": 737,
+    "func": "async function showDetail"
+  },
+  {
+    "line": 742,
+    "func": "// Reset current comic to avoid stale logic"
+  },
+  {
+    "line": 745,
+    "func": "// Immediately clear UI to prevent "
+  },
+  {
+    "line": 862,
+    "func": "async function addCurrentToLibrary"
+  },
+  {
+    "line": 871,
+    "func": "// Controller for timeout"
+  },
+  {
+    "line": 898,
+    "func": "// Refresh explore badges"
+  },
+  {
+    "line": 923,
+    "func": "function updateExploreGridBadges"
+  },
+  {
+    "line": 949,
+    "func": "async function confirmDelete"
+  },
+  {
+    "line": 984,
+    "func": "function updateFavBtn"
+  },
+  {
+    "line": 995,
+    "func": "function showDashboard"
+  },
+  {
+    "line": 1010,
+    "func": "function changeChapter"
+  },
+  {
+    "line": 1017,
+    "func": "function onChapterInput"
+  },
+  {
+    "line": 1026,
+    "func": "function markLatestRead"
+  },
+  {
+    "line": 1037,
+    "func": "function refreshProgress"
+  },
+  {
+    "line": 1051,
+    "func": "function saveChapter"
+  },
+  {
+    "line": 1070,
+    "func": "function toggleFav"
+  },
+  {
+    "line": 1084,
+    "func": "function renderChapterList"
+  },
+  {
+    "line": 1105,
+    "func": "async function openReader"
+  },
+  {
+    "line": 1150,
+    "func": "function closeReader"
+  },
+  {
+    "line": 1156,
+    "func": "function prevReaderChapter"
+  },
+  {
+    "line": 1157,
+    "func": "function nextReaderChapter"
+  },
+  {
+    "line": 1162,
+    "func": "function changeZoom"
+  },
+  {
+    "line": 1190,
+    "func": "function extractNum"
+  },
+  {
+    "line": 1199,
+    "func": "function escHtml"
+  },
+  {
+    "line": 1205,
+    "func": "function openExplore"
+  },
+  {
+    "line": 1214,
+    "func": "function closeExplore"
+  },
+  {
+    "line": 1221,
+    "func": "async function updateExploreView"
+  },
+  {
+    "line": 1243,
+    "func": "async function loadExplorePage"
+  },
+  {
+    "line": 1288,
+    "func": "async function loadMoreExplore"
+  },
+  {
+    "line": 1297,
+    "func": "function toggleFilterPanel"
+  },
+  {
+    "line": 1302,
+    "func": "function populateFilters"
+  },
+  {
+    "line": 1330,
+    "func": "function renderFilterGroup"
+  },
+  {
+    "line": 1350,
+    "func": "function clearFilters"
+  }
+]

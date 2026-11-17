@@ -1,0 +1,45 @@
+{
+  "name": "Gourmet Scans",
+  "theme": "madara",
+  "selectors": {
+    "chapters": {
+      "item": ".wp-manga-chapter",
+      "link": "a",
+      "title": "a",
+      "date": ".chapter-release-date"
+    },
+    "details": {
+      "title": ".post-title h1",
+      "author": ".author-content a",
+      "genre": ".genres-content a",
+      "desc": ".summary__content",
+      "image": ".summary_image img",
+      "latest_chapter": ".wp-manga-chapter a",
+      "latest_date": ".chapter-release-date i",
+      "rating": "#averagerate, .score",
+      "meta_container": ".post-content_item",
+      "meta_key": ".summary-heading h5",
+      "meta_val": ".summary-content"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "Manhwa",
+      "urls": {
+        "Latest": "https://gourmetsupremacy.com/tag/manhwa/"
+      }
+    },
+    {
+      "type": "Manga",
+      "urls": {
+        "Latest": "https://gourmetsupremacy.com/tag/manga/"
+      }
+    },
+    {
+      "type": "Manhua",
+      "urls": {
+        "Latest": "https://gourmetsupremacy.com/tag/manhua/"
+      }
+    }
+  ]
+}

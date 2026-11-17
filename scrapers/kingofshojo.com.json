@@ -1,0 +1,69 @@
+{
+  "name": "KingOfShojo",
+  "theme": "mangareader",
+  "rating_scale": 10,
+  "search_url": "https://kingofshojo.com/?s={query}",
+  "selectors": {
+    "chapters": {
+      "item": "#chapterlist li",
+      "link": "a",
+      "title": ".chapternum",
+      "date": ".chapterdate"
+    },
+    "details": {
+      "title": "h1.entry-title",
+      "author": ".tsinfo .imptdt:contains('Author') i, .tsinfo .imptdt:nth-child(4) i",
+      "genre": ".genng a",
+      "desc": ".entry-content p",
+      "image": ".thumb img",
+      "latest_chapter": ".chbox a",
+      "latest_date": ".chbox .chapterdate",
+      "rating": ".num",
+      "meta_container": ".imptdt",
+      "meta_key": "self",
+      "meta_val": "i, a"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "Manhwa",
+      "urls": {
+        "Newest": "https://kingofshojo.com/manga/?type=manhwa&order=new",
+        "Latest": "https://kingofshojo.com/manga/?type=manhwa&order=update",
+        "Popular": "https://kingofshojo.com/manga/?type=manhwa&order=popular",
+        "Rating": "https://kingofshojo.com/manga/?type=manhwa&order=rating",
+        "A-Z": "https://kingofshojo.com/manga/?type=manhwa&order=title"
+      }
+    },
+    {
+      "type": "Manga",
+      "urls": {
+        "Newest": "https://kingofshojo.com/manga/?type=manga&order=new",
+        "Latest": "https://kingofshojo.com/manga/?type=manga&order=update",
+        "Popular": "https://kingofshojo.com/manga/?type=manga&order=popular",
+        "Rating": "https://kingofshojo.com/manga/?type=manga&order=rating",
+        "A-Z": "https://kingofshojo.com/manga/?type=manga&order=title"
+      }
+    },
+    {
+      "type": "Manhua",
+      "urls": {
+        "Newest": "https://kingofshojo.com/manga/?type=manhua&order=new",
+        "Latest": "https://kingofshojo.com/manga/?type=manhua&order=update",
+        "Popular": "https://kingofshojo.com/manga/?type=manhua&order=popular",
+        "Rating": "https://kingofshojo.com/manga/?type=manhua&order=rating",
+        "A-Z": "https://kingofshojo.com/manga/?type=manhua&order=title"
+      }
+    },
+    {
+      "type": "All Combined",
+      "urls": {
+        "Newest": "https://kingofshojo.com/manga/?order=new",
+        "Latest": "https://kingofshojo.com/manga/?order=update",
+        "Popular": "https://kingofshojo.com/manga/?order=popular",
+        "Rating": "https://kingofshojo.com/manga/?order=rating",
+        "A-Z": "https://kingofshojo.com/manga/?order=title"
+      }
+    }
+  ]
+}

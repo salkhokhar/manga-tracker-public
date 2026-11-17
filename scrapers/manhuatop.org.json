@@ -1,0 +1,78 @@
+{
+  "name": "ManhuaTop",
+  "theme": "custom",
+  "search_url": "https://manhuatop.org/search/{query}/",
+  "comic_url_pattern": "/manhua/{slug}/",
+  "selectors": {
+    "search": {
+      "item": "li.manga-card:not(.compact-card)",
+      "title": ".card-title-row h3 a",
+      "link": ".card-title-row h3 a",
+      "image": "img",
+      "image_attr": "src, data-src",
+      "latest_chapter": ".chapter-line a",
+      "date": ""
+    },
+    "explore": {
+      "item": "li.manga-card:not(.compact-card)",
+      "title": ".card-title-row h3 a",
+      "link": ".card-title-row h3 a",
+      "image": "img",
+      "image_attr": "src, data-src",
+      "latest_chapter": ".chapter-line a"
+    },
+    "chapters": {
+      "item": ".chapter-item",
+      "link": "a",
+      "title": "strong",
+      "date": "time",
+      "load_more": ".detail-load-chapters"
+    },
+    "details": {
+      "title": "h1#manga-title",
+      "author": "a[href*='/manhua-author/']",
+      "genre": ".genre-chips a",
+      "desc": ".rich-content.synopsis",
+      "image": ".detail-cover img",
+      "latest_chapter": ".chapter-item a",
+      "latest_date": ".chapter-item time",
+      "rating": ".card-rating",
+      "rating_attr": "title",
+      "status": ".status-badge",
+      "alt_names": ".alternative-title",
+      "meta_container": ".metadata-list > div:not(.metadata-type-release), .metadata-type-release > div",
+      "meta_key": "dt",
+      "meta_val": "dd"
+    },
+    "images": {
+      "item": ".reader-content img",
+      "src_attr": "src"
+    }
+  },
+  "explore_categories": [
+    {
+      "type": "Manhwa",
+      "urls": {
+        "Latest": "https://manhuatop.org/manhua-genre/manhwa/"
+      }
+    },
+    {
+      "type": "Manhua",
+      "urls": {
+        "Latest": "https://manhuatop.org/manhua-genre/manhua/"
+      }
+    },
+    {
+      "type": "Latest Update",
+      "urls": {
+        "Latest": "https://manhuatop.org/latest-manga-update-mh/"
+      }
+    },
+    {
+      "type": "New Release",
+      "urls": {
+        "Newest": "https://manhuatop.org/new-manga/"
+      }
+    }
+  ]
+}
