@@ -41,3 +41,8 @@ android/app/build/
 
 # Personal library databases stay in the private repo
 *.db
+
+# Python packaging
+*.egg-info/
+build/
+.pytest_cache/
